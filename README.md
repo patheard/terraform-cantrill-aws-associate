@@ -3,3 +3,4 @@ Lab work for the Cantrill [AWS Associate course](https://learn.cantrill.io/p/aws
 
 # Credits
 * Project structure/workflows from [cds-snc/notification-terraform](https://github.com/cds-snc/notification-terraform)
+* Terraform state bootstrap idea from [cds-snc/covid-alert-server-staging-terraform](https://github.com/cds-snc/covid-alert-server-staging-terraform)
