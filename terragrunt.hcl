@@ -4,7 +4,8 @@ locals {
 }
 
 inputs = {
-  env = "${local.vars.inputs.env}"
+  env    = "${local.vars.inputs.env}"
+  region = "${local.vars.inputs.region}"
 }
 
 remote_state {

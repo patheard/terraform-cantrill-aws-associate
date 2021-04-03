@@ -1,3 +1,4 @@
 inputs = {
-  env = "general"
+  env    = "general"
+  region = "us-east-1"
 }
