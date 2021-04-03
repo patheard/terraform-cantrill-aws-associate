@@ -18,8 +18,3 @@ variable "email" {
   description = "Email address to subsribe to the SNS alarm topic"
   type        = string
 }
-
-variable "region" {
-  description = "Region the alarm is deployed in"
-  type        = string
-}
