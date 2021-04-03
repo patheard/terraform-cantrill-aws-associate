@@ -11,12 +11,24 @@ provider "aws" {
   region = "us-east-1"
 }
 
+# Disable log enabled check on log bucket itself
+#tfsec:ignore:AWS002
+resource "aws_s3_bucket" "log_bucket" {
+  bucket = "tfstate-logging"
+  acl    = "log-delivery-write"
+}
+
 resource "aws_s3_bucket" "storage_bucket" {
   bucket = var.storage_bucket
 
   acl = "private"
   versioning {
     enabled = true
+  }
+
+  logging {
+    target_bucket = aws_s3_bucket.log_bucket.id
+    target_prefix = "log/"
   }
 
   server_side_encryption_configuration {
