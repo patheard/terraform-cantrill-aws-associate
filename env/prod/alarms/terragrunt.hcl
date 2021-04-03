@@ -3,8 +3,9 @@ include {
 }
 
 terraform {
-  source = "../../../module//alerts"
+  source = "../../../module//alarms"
 }
 inputs = {
   monthly_billing_threshold = "10"
+  email                     = "pat.heard@gmail.com"
 }
