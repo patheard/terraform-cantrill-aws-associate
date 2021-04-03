@@ -15,7 +15,19 @@ provider "aws" {
 #tfsec:ignore:AWS002
 resource "aws_s3_bucket" "log_bucket" {
   bucket = "tfstate-logging"
-  acl    = "log-delivery-write"
+
+  acl = "log-delivery-write"
+  versioning {
+    enabled = true
+  }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
 }
 
 resource "aws_s3_bucket" "storage_bucket" {
