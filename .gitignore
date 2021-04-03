@@ -2,10 +2,13 @@
 **/.terraform/*
 **/.terragrunt-cache/*
 
-
 # .tfstate files
 *.tfstate
 *.tfstate.*
+
+# Lock files.  Normally these would be committed to the repo, but this is just to keep things clean
+# since consistency in re-running these is not required.
+*.lock.hcl
 
 # Crash log files
 crash.log
