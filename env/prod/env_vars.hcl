@@ -1,3 +1,3 @@
 inputs = {
-  env    = "prod"
+  env = "prod"
 }

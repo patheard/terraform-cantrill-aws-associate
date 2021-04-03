@@ -1,3 +1,3 @@
 inputs = {
-  env    = "general"
+  env = "general"
 }
