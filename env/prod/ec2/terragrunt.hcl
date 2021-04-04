@@ -15,5 +15,8 @@ terraform {
   source = "../../../module//ec2"
 }
 inputs = {
+  name          = "Morty"
   instance_type = "t2.micro"
+  ingress_ip     = "0.0.0.0/0"              # Change to your IP to lock down to only you
+  ssh_public_key = "ssh-rsa <your pub key>" # cat ~/.ssh/id_rsa.pub  
 }
