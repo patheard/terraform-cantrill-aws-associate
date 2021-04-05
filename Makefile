@@ -6,8 +6,8 @@ help: ## List the targets
 hclfmt: ## Format all .hcl files
 	terragrunt hclfmt
 
-tfsec: ## Run TFSec scan against the directory given by "DIR=/some/directory"
-	docker run --rm -it -v "$(DIR):/src" tfsec/tfsec-alpine /src
+tfsec: ## Run TFSec scan against the labs
+	docker run --rm -it -v "$(CURDIR)/lab:/src" tfsec/tfsec-alpine /src
 
 .PHONY: \
 	hclfmt \
