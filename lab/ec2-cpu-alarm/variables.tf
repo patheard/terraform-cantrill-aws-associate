@@ -1,3 +1,8 @@
+variable "cpu_threshold" {
+  description = "The CPU threshold for the use matric alarm"
+  type        = string
+}
+
 variable "env" {
   description = "Environment you are deploying to (appended to ec2 name)"
   type        = string
@@ -21,10 +26,4 @@ variable "instance_type" {
 variable "ssh_public_key" {
   description = "Public key of the SSH key"
   type        = string
-}
-
-variable "user_data" {
-  description = "User data script to run on instance start"
-  type        = string
-  default     = ""
 }

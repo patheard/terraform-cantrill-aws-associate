@@ -46,7 +46,8 @@ resource "aws_instance" "this" {
     device_index         = 0
   }
 
-  key_name = aws_key_pair.this.key_name
+  key_name  = aws_key_pair.this.key_name
+  user_data = var.user_data
 
   tags = {
     Name = "${var.name}-${var.env}"
