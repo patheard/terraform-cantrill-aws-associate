@@ -12,7 +12,7 @@ include {
 }
 
 terraform {
-  source = "../../../module//ec2"
+  source = "../../../lab//ec2"
 }
 inputs = {
   name           = "Rick"

@@ -3,7 +3,7 @@ include {
 }
 
 terraform {
-  source = "../../../module//alarms"
+  source = "../../../lab//alarms"
 }
 inputs = {
   monthly_billing_threshold = "10"

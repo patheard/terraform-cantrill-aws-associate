@@ -12,7 +12,7 @@ include {
 }
 
 terraform {
-  source = "../../../module//s3"
+  source = "../../../lab//s3"
 }
 inputs = {
   bucket_name = "DemoBucket"
