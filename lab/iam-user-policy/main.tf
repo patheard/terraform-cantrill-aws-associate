@@ -1,5 +1,6 @@
 resource "aws_iam_user" "this" {
-  name = var.name
+  name          = var.name
+  force_destroy = true
 }
 
 module "catpicks" {

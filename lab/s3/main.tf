@@ -19,6 +19,8 @@ resource "aws_s3_bucket" "this" {
     enabled = true
   }
 
+  force_destroy = true
+
   # Log to self
   logging {
     target_bucket = local.full_bucket_name # self.id doesn't work in this context ¯\_(ツ)_/¯
