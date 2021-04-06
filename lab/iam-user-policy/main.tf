@@ -3,7 +3,7 @@ resource "aws_iam_user" "this" {
   force_destroy = true
 }
 
-module "catpicks" {
+module "catpics" {
   source      = "../s3"
   env         = var.env
   bucket_name = "catpics"
@@ -33,8 +33,8 @@ resource "aws_iam_user_policy" "this" {
           "Effect":"Deny",
           "Action":"s3:*",
           "Resource":[
-            "${module.catpicks.bucket_arn}",
-            "${module.catpicks.bucket_arn}/*"
+            "${module.catpics.bucket_arn}",
+            "${module.catpics.bucket_arn}/*"
           ]
         }
     ]

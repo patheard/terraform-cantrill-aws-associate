@@ -5,3 +5,7 @@ output "user_id" {
 output "user_arn" {
   value = aws_iam_user.this.arn
 }
+
+output "catpics_bucket_name" {
+  value = module.catpics.bucket_name
+}
