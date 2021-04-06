@@ -1,9 +1,9 @@
 dependencies {
-  paths = ["../alarms"]
+  paths = ["../alarm-billing"]
 }
 
-dependency "alarms" {
-  config_path  = "../alarms"
+dependency "alarm-billing" {
+  config_path  = "../alarm-billing"
   skip_outputs = true
 }
 
