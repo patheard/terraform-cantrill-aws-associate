@@ -1,0 +1,48 @@
+name: "Terraform validate"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  terraform-validate:
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
+
+      - name: Setup Terragrunt
+        run: |
+          wget -O terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/$TERRAGRUNT_VERSION/terragrunt_linux_amd64
+          chmod +x terragrunt
+          mv terragrunt /usr/local/bin/
+
+      - name: Terraform validate general
+        run: |
+          cd env/general
+          terragrunt run-all validate
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.GENERAL_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.GENERAL_AWS_SECRET_ACCESS_KEY }}
+
+      - name: Terraform validate prod
+        run: |
+          cd env/prod
+          terragrunt run-all validate
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
