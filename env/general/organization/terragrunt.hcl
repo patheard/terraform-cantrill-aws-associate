@@ -6,6 +6,8 @@ terraform {
   source = "../../../lab//organization"
 }
 inputs = {
-  account_name  = "associate-dev"
-  account_email = "unique-email@some-domain.com"
+  dev_account_name    = "associate-dev"
+  dev_account_email   = "dev@example.com"
+  prod_account_name   = "associate-prod"
+  prod_account_email  = "prod@example.com"  
 }
