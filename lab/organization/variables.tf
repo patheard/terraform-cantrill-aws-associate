@@ -1,7 +1,15 @@
-variable "account_name" {
+variable "dev_account_name" {
   type = string
 }
 
-variable "account_email" {
+variable "dev_account_email" {
+  type = string
+}
+
+variable "prod_account_name" {
+  type = string
+}
+
+variable "prod_account_email" {
   type = string
 }
