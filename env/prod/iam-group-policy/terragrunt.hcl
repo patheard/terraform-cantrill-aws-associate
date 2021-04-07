@@ -10,6 +10,7 @@ dependency "iam-user-policy" {
   mock_outputs_allowed_terraform_commands = ["validate"]
   mock_outputs = {
     catpics_bucket_name = ""
+    group_name          = ""    
   }
 }
 
@@ -22,6 +23,6 @@ terraform {
 }
 inputs = {
   catpics_bucket_name = dependency.iam-user-policy.outputs.catpics_bucket_name
+  user_name           = dependency.iam-user-policy.outputs.user_name
   group_name          = "NoCatUsers"
-  user_name           = "Ren"
 }
