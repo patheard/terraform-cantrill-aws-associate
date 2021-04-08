@@ -2,6 +2,9 @@
 # https://www.maxivanov.io/how-to-move-resources-and-modules-in-terragrunt/
 
 resource "aws_organizations_organization" "root" {
+  aws_service_access_principals = [
+    "cloudtrail.amazonaws.com"
+  ]
   enabled_policy_types = ["SERVICE_CONTROL_POLICY"]
 }
 
