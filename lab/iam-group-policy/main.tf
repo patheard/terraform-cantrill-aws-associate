@@ -42,7 +42,7 @@ resource "aws_iam_group_policy" "this" {
         "Effect" : "Deny",
         "Action" : "s3:*",
         "Resource" : [
-          "${data.aws_s3_bucket.catpics.arn}",
+          data.aws_s3_bucket.catpics.arn,
           "${data.aws_s3_bucket.catpics.arn}/*"
         ]
       }
