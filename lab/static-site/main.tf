@@ -1,4 +1,3 @@
-#tfsec:ignore:AWS017 static site can't be encrypted
 resource "aws_s3_bucket" "website" {
   bucket              = var.website_domain
   acl                 = "public-read" #tfsec:ignore:AWS001 public access is required
@@ -17,6 +16,14 @@ resource "aws_s3_bucket" "website" {
   website {
     index_document = "index.html"
     error_document = "error.html"
+  }
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
   }
 }
 
