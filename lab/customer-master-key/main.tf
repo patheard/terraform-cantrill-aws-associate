@@ -1,7 +1,11 @@
 data "aws_caller_identity" "current" {}
 
-resource "aws_kms_key" "alarm_encryption_key" {
-  description         = "Alarm ${var.env} encryption key"
+locals {
+  account_id = data.aws_caller_identity.current.account_id
+}
+
+resource "aws_kms_key" "root" {
+  description         = "Root CMK for ${var.env}"
   enable_key_rotation = true
 
   # Create key administrators
@@ -13,16 +17,16 @@ resource "aws_kms_key" "alarm_encryption_key" {
         "Sid" : "Allow IAM root user to manage CMK",
         "Effect" : "Allow",
         "Principal" : {
-          "AWS" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+          "AWS" : "arn:aws:iam::${local.account_id}:root"
         },
         "Action" : "kms:*",
         "Resource" : "*"
       },
       {
-        "Sid" : "Allow access for Key Administrators",
+        "Sid" : "Allow access for key admin",
         "Effect" : "Allow",
         "Principal" : { "AWS" : [
-          "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/iamadmin"
+          "arn:aws:iam::${local.account_id}:user/iamadmin"
         ] },
         "Action" : [
           "kms:Create*",
@@ -44,4 +48,9 @@ resource "aws_kms_key" "alarm_encryption_key" {
       }
     ]
   })
+}
+
+resource "aws_kms_alias" "root_alias" {
+  name          = "alias/root-${var.env}"
+  target_key_id = aws_kms_key.root.key_id
 }
