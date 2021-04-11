@@ -22,3 +22,15 @@ output "subnets" {
 output "igw_id" {
   value = aws_internet_gateway.a4l_igw.id
 }
+
+output "bastion_id" {
+  value = module.baston_host.id
+}
+
+output "bastion_public_ip" {
+  value = module.baston_host.public_ip
+}
+
+output "bastion_ssh_command" {
+  value = "ssh ec2-user@${module.baston_host.public_ip}"
+}

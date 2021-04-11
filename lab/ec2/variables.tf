@@ -28,3 +28,15 @@ variable "user_data" {
   type        = string
   default     = ""
 }
+
+variable "vpc_id" {
+  description = "VPC ID for the instance's security group"
+  type        = string
+  default     = null
+}
+
+variable "subnet_id" {
+  description = "Subnet for the instance's network interface card"
+  type        = string
+  default     = null
+}
