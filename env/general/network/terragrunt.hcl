@@ -4,6 +4,12 @@ include {
 
 terraform {
   source = "../../../lab//network"
+  extra_arguments "secrets" {
+    commands = ["plan", "apply", "destroy"]
+    arguments = [
+      "-var-file=secrets.tfvars"
+    ]
+  }  
 }
 inputs = {
   vpc_name            = "a4l-vpc1"
@@ -72,4 +78,10 @@ inputs = {
       public_internet    = true
     }
   }
+  bastion_name          = "bastion-web-A"  
+  bastion_instance_type = "t2.micro"
+  bastion_subnet_name   = "sn-web-A"
+  # Set these in a secret.tfvars file in the same directory
+  # bastion_ingress_ip      = "0.0.0.0/0"
+  # bastion_ssh_public_key  = "cat ~/.ssh/id_rsa.pub"
 }

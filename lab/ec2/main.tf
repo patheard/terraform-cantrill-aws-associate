@@ -4,7 +4,7 @@ resource "aws_key_pair" "this" {
 }
 
 resource "aws_network_interface" "this" {
-  subnet_id       = tolist(data.aws_subnet_ids.all.ids)[0]
+  subnet_id       = var.subnet_id != null ? var.subnet_id : tolist(data.aws_subnet_ids.all.ids)[0]
   security_groups = [aws_security_group.allow_ssh.id]
 
   tags = {
@@ -15,7 +15,7 @@ resource "aws_network_interface" "this" {
 resource "aws_security_group" "allow_ssh" {
   name        = "allow_ssh"
   description = "Allow SSH inbound traffic"
-  vpc_id      = data.aws_vpc.default.id
+  vpc_id      = var.vpc_id != null ? var.vpc_id : data.aws_vpc.default.id
 
   ingress {
     description = "SSH from VPC"
