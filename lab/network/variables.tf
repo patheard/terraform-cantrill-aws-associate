@@ -22,6 +22,11 @@ variable "subnets_public" {
   type        = set(string)
 }
 
+variable "subnets_public_prefix" {
+  description = "The prefix portion of the subnets name (e.g. if public subnets are `sn-web-A`, `sn-web-B`, etc, then value is `sn-web`)"
+  type        = string
+}
+
 variable "subnets" {
   description = "List of subnets to create"
   type = map(object({
@@ -54,5 +59,15 @@ variable "bastion_ssh_public_key" {
 
 variable "bastion_subnet_name" {
   description = "Subnet name to deploy the bastion host to"
+  type        = string
+}
+
+variable "private_host_name" {
+  description = "Name of the private host instance"
+  type        = string
+}
+
+variable "private_host_subnet_name" {
+  description = "Subnet name to deploy the private host to"
   type        = string
 }

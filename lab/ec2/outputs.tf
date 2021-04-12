@@ -6,6 +6,10 @@ output "public_ip" {
   value = aws_instance.this.public_ip
 }
 
+output "private_ip" {
+  value = aws_instance.this.private_ip
+}
+
 output "ssh_command" {
   value = "ssh -vvv ec2-user@${aws_instance.this.public_ip}"
 }

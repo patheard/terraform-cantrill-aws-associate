@@ -38,7 +38,7 @@ resource "aws_subnet" "subnet" {
   cidr_block      = cidrsubnet(aws_vpc.a4l_vpc1.cidr_block, var.subnet_ipv4_newbits, each.value.subnet_cidr_netnum)
   ipv6_cidr_block = cidrsubnet(aws_vpc.a4l_vpc1.ipv6_cidr_block, var.subnet_ipv6_newbits, each.value.subnet_cidr_netnum)
 
-  map_public_ip_on_launch         = true
+  map_public_ip_on_launch         = each.value.public_internet
   assign_ipv6_address_on_creation = true
 
   tags = {
