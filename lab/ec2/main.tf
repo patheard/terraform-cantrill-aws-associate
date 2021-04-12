@@ -1,5 +1,5 @@
 resource "aws_key_pair" "this" {
-  key_name   = "ssh-key"
+  key_name   = "${var.name}-${var.env}-ssh-key"
   public_key = var.ssh_public_key
 }
 
@@ -13,7 +13,7 @@ resource "aws_network_interface" "this" {
 }
 
 resource "aws_security_group" "allow_ssh" {
-  name        = "allow_ssh"
+  name        = "${var.name}-${var.env}_allow_ssh"
   description = "Allow SSH inbound traffic"
   vpc_id      = var.vpc_id != null ? var.vpc_id : data.aws_vpc.default.id
 

@@ -31,6 +31,22 @@ output "bastion_public_ip" {
   value = module.baston_host.public_ip
 }
 
+output "bastion_private_ip" {
+  value = module.baston_host.private_ip
+}
+
 output "bastion_ssh_command" {
   value = "ssh ec2-user@${module.baston_host.public_ip}"
+}
+
+output "private_host_id" {
+  value = module.private_host.id
+}
+
+output "private_host_private_ip" {
+  value = module.private_host.private_ip
+}
+
+output "private_host_ssh_command" {
+  value = "ssh ec2-user@${module.private_host.private_ip}"
 }
