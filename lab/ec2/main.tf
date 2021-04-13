@@ -38,8 +38,9 @@ resource "aws_security_group" "allow_ssh" {
 }
 
 resource "aws_instance" "this" {
-  ami           = data.aws_ami.amazon_linux.id
-  instance_type = var.instance_type
+  ami                  = data.aws_ami.amazon_linux.id
+  instance_type        = var.instance_type
+  iam_instance_profile = var.iam_instance_profile
 
   network_interface {
     network_interface_id = aws_network_interface.this.id
