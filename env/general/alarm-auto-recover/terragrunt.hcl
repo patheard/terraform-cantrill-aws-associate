@@ -9,7 +9,7 @@ dependency "network" {
   # This can happen if the dependency hasn't been applied yet
   mock_outputs_allowed_terraform_commands = ["validate"]
   mock_outputs = {
-    aws_instance_id  = ""
+    bastion_id = ""
   }
 }
 
