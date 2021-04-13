@@ -40,3 +40,9 @@ variable "subnet_id" {
   type        = string
   default     = null
 }
+
+variable "iam_instance_profile" {
+  description = "Instance profile name"
+  type        = string
+  default     = null
+}
