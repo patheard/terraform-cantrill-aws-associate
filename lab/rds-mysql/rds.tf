@@ -16,6 +16,15 @@ resource "aws_db_instance" "mysql" {
 
   storage_encrypted   = true
   skip_final_snapshot = true
+
+  backup_retention_period = 1
+  backup_window           = "03:00-04:00"
+  maintenance_window      = "Mon:00:00-Mon:02:00"
+}
+
+resource "aws_db_snapshot" "manual_snapshot" {
+  db_instance_identifier = aws_db_instance.mysql.identifier
+  db_snapshot_identifier = "manual-snapshot"
 }
 
 data "aws_subnet_ids" "database" {
