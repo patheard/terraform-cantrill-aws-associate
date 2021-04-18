@@ -1,0 +1,46 @@
+dependencies {
+  paths = ["../network"]
+}
+
+dependency "network" {
+  config_path = "../network"
+
+  # Configure mock outputs for the `validate` command when there are no outputs available
+  # This can happen if the dependency hasn't been applied yet
+  mock_outputs_allowed_terraform_commands = ["validate"]
+  mock_outputs = {
+    subnets = {
+      "sn-app-A" = {
+        "id" = ""
+      }
+      "sn-app-B" = {
+        "id" = ""
+      }
+      "sn-app-C" = {
+        "id" = ""
+      }
+    }
+    vpc_id = ""
+  }
+}
+
+include {
+  path = find_in_parent_folders()
+}
+
+terraform {
+  source = "../../../lab//efs"
+  extra_arguments "secrets" {
+    commands = ["plan", "apply", "destroy"]
+    arguments = [
+      "-var-file=secrets.tfvars"
+    ]
+  }
+}
+inputs = {
+  efs_name      = "efs_test"
+  efs_subnets   = ["sn-app-A", "sn-app-B", "sn-app-C"]
+  instance_name = "efs-test-instance"
+  subnets       = dependency.network.outputs.subnets
+  vpc_id        = dependency.network.outputs.vpc_id
+}
