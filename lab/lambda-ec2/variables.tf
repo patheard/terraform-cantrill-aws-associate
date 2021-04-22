@@ -22,8 +22,3 @@ variable "vpc_id" {
   description = "VPC of the subnets the Lambda function will be attached to"
   type        = string
 }
-
-variable "vpc_cidr_block" {
-  description = "IPv4 cidr block of the VPC"
-  type        = string
-}

@@ -28,10 +28,10 @@ resource "aws_lambda_function" "functions" {
   handler          = "${each.key}.lambda_handler"
   runtime          = "python3.8"
 
-  timeout = 20
+  timeout = 5
 
   vpc_config {
-    security_group_ids = [aws_security_group.allow_lambda_on_vpc.id]
+    security_group_ids = [aws_security_group.allow_lambda_egress.id]
     subnet_ids         = local.subnet_ids
   }
 
@@ -41,20 +41,16 @@ resource "aws_lambda_function" "functions" {
   ]
 }
 
-resource "aws_security_group" "allow_lambda_on_vpc" {
-  name        = "allow_lambda_on_vpc"
-  description = "Allow Lambda function to communicate with the VPC resources"
+resource "aws_security_group" "allow_lambda_egress" {
+  name        = "allow_lambda_egress"
+  description = "Allow Lambda function to communicate with public AWS"
   vpc_id      = var.vpc_id
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = [var.vpc_cidr_block]
-  }
-
-  tags = {
-    Name = "allow_lambda_on_vpc"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "TCP"
+    cidr_blocks = ["0.0.0.0/0"] #tfsec:ignore:AWS009
   }
 }
 
