@@ -33,7 +33,7 @@ terraform {
 }
 inputs = {
   lambda_functions = ["start", "stop"]
-  subnets_app      = ["sn-app-A", "sn-app-B", "sn-app-C"]
+  subnets_lambda   = ["sn-web-A", "sn-web-B", "sn-web-C"]
   subnets          = dependency.network.outputs.subnets
   vpc_id           = dependency.network.outputs.vpc_id
   vpc_cidr_block   = "10.16.0.0/16"

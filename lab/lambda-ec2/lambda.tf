@@ -5,32 +5,30 @@ locals {
     for subnet_key, subnet in var.subnets : [
       subnet.id
     ]
-    if contains(var.subnets_app, subnet_key)
+    if contains(var.subnets_lambda, subnet_key)
   ])
 }
 
+data "archive_file" "lambda_functions" {
+  for_each = var.lambda_functions
+
+  type        = "zip"
+  source_file = "functions/${each.key}.py"
+  output_path = "functions/${each.key}.zip"
+}
+
 resource "aws_lambda_function" "functions" {
-  for_each = {
-    for function_name in var.lambda_functions : function_name => {
-      filename = "functions/${function_name}.zip"
-    }
-  }
+  for_each = var.lambda_functions
 
   function_name = "${each.key}-${var.env}"
   role          = aws_iam_role.lambda_role.arn
 
-  filename         = each.value.filename
-  source_code_hash = filebase64sha256(each.value.filename)
+  filename         = "functions/${each.key}.zip"
+  source_code_hash = data.archive_file.lambda_functions[each.key].output_base64sha256
   handler          = "${each.key}.lambda_handler"
   runtime          = "python3.8"
 
-  timeout = 10
-
-  environment {
-    variables = {
-      EC2_INSTANCES = ""
-    }
-  }
+  timeout = 20
 
   vpc_config {
     security_group_ids = [aws_security_group.allow_lambda_on_vpc.id]

@@ -13,8 +13,8 @@ variable "subnets" {
   type        = map(any)
 }
 
-variable "subnets_app" {
-  description = "The names of the app subnets"
+variable "subnets_lambda" {
+  description = "The subnets to attach the Lambda function to"
   type        = list(string)
 }
 
