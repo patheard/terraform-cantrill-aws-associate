@@ -7,7 +7,7 @@ hclfmt: ## Format all .hcl files
 	terragrunt hclfmt
 
 tfsec: ## Run TFSec scan against the labs
-	docker run --rm -it -v "$(CURDIR)/lab:/src" tfsec/tfsec-alpine /src
+	docker run --rm -it -v "$(CURDIR)/lab:/src" tfsec/tfsec-alpine:v0.39.22 /src
 
 .PHONY: \
 	hclfmt \
