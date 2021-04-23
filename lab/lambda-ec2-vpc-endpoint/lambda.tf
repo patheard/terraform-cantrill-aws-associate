@@ -32,22 +32,8 @@ resource "aws_lambda_function" "functions" {
 
 resource "aws_security_group" "allow_lambda_egress" {
   name        = "allow_lambda_egress"
-  description = "Allow Lambda function to communicate with AWS services"
+  description = "Allow Lambda function to communicate with AWS service endpoints"
   vpc_id      = aws_vpc.vpc_test.id
-
-  egress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "TCP"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # egress {
-  #   from_port       = 443
-  #   to_port         = 443
-  #   protocol        = "TCP"
-  #   prefix_list_ids = aws_vpc_endpoint.cloudwatch_endpoint.network_interface_ids
-  # }
 }
 
 resource "aws_cloudwatch_log_group" "lambda_log_group" {

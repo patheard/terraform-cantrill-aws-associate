@@ -23,10 +23,11 @@ resource "aws_vpc_endpoint" "ec2_endpoint" {
   vpc_endpoint_type = "Interface"
 
   security_group_ids = [
-    aws_security_group.privatelink.id,
+    aws_security_group.vpc_endpoint.id,
   ]
 
-  subnet_ids = [aws_subnet.subnet_test.id]
+  subnet_ids          = [aws_subnet.subnet_test.id]
+  private_dns_enabled = true
 }
 
 resource "aws_vpc_endpoint" "cloudwatch_endpoint" {
@@ -35,14 +36,22 @@ resource "aws_vpc_endpoint" "cloudwatch_endpoint" {
   vpc_endpoint_type = "Interface"
 
   security_group_ids = [
-    aws_security_group.privatelink.id,
+    aws_security_group.vpc_endpoint.id,
   ]
 
-  subnet_ids = [aws_subnet.subnet_test.id]
+  subnet_ids          = [aws_subnet.subnet_test.id]
+  private_dns_enabled = true
 }
 
-resource "aws_security_group" "privatelink" {
-  name        = "PrivateLink"
-  description = "PrivateLink endpoints"
+resource "aws_security_group" "vpc_endpoint" {
+  name        = "vpc_endpoint"
+  description = "Allow TCP 443 over PrivateLink for AWS service endpoints"
   vpc_id      = aws_vpc.vpc_test.id
+
+  ingress {
+    from_port       = 443
+    to_port         = 443
+    protocol        = "TCP"
+    security_groups = [aws_security_group.allow_lambda_egress.id]
+  }
 }
