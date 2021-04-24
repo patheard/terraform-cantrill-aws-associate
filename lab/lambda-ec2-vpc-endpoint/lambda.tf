@@ -30,10 +30,20 @@ resource "aws_lambda_function" "functions" {
   ]
 }
 
+# Allow the Lambda functions to communicate with resources in the VPC.  This is required
+# since the VPC Endpoint (Interface) deploys an ENI in the VPC that the functions need
+# to talk to.
 resource "aws_security_group" "allow_lambda_egress" {
   name        = "allow_lambda_egress"
   description = "Allow Lambda function to communicate with AWS service endpoints"
   vpc_id      = aws_vpc.vpc_test.id
+
+  egress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "TCP"
+    cidr_blocks = [aws_vpc.vpc_test.cidr_block]
+  }
 }
 
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
@@ -96,14 +106,3 @@ resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
   role       = aws_iam_role.lambda_role.name
   policy_arn = aws_iam_policy.lambda_policy.arn
 }
-
-
-# Example of using a null_resource debug variables
-# resource "null_resource" "debug_subnet_ids" {
-#   provisioner "local-exec" {
-#     command = "echo ${join(",", local.subnet_ids)}"
-#   }
-#   triggers = {
-#     always_run = "${timestamp()}"
-#   }
-# }

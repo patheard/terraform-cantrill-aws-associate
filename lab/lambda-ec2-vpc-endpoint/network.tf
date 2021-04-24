@@ -43,6 +43,7 @@ resource "aws_vpc_endpoint" "cloudwatch_endpoint" {
   private_dns_enabled = true
 }
 
+# Allow communication from the Lambda SG
 resource "aws_security_group" "vpc_endpoint" {
   name        = "vpc_endpoint"
   description = "Allow TCP 443 over PrivateLink for AWS service endpoints"

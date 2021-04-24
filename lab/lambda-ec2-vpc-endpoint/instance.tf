@@ -19,6 +19,10 @@ resource "aws_instance" "instance_stop_start" {
   instance_type = "t3.micro"
   subnet_id     = aws_subnet.subnet_test.id
 
+  metadata_options {
+    http_tokens = "required"
+  }
+
   tags = {
     Name = "StopStarter"
   }
