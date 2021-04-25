@@ -34,7 +34,7 @@ resource "aws_subnet" "subnet" {
   # Host + 3 bits       = 00001010.00010000.0011 | 0000.00000000 = 10.16.48.0/20
 
   # Tip:
-  # Use `ipcalc 10.16.0.0/16` util to help visulize
+  # Use `ipcalc 10.16.0.0/16` util to help visualize
   cidr_block      = cidrsubnet(aws_vpc.a4l_vpc1.cidr_block, var.subnet_ipv4_newbits, each.value.subnet_cidr_netnum)
   ipv6_cidr_block = cidrsubnet(aws_vpc.a4l_vpc1.ipv6_cidr_block, var.subnet_ipv6_newbits, each.value.subnet_cidr_netnum)
 
